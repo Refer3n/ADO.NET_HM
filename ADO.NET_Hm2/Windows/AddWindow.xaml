@@ -1,0 +1,36 @@
+﻿<Window x:Class="ADO.NET_Hm2.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ADO.NET_Hm2"
+        mc:Ignorable="d"
+        Title="AddWindow" Height="200" Width="400">
+    <Grid>
+        <TextBlock Text="Select the add option:" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,20,0,0"/>
+
+        <ComboBox x:Name="optionsComboBox" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Top" 
+                  Margin="0,50,0,0"
+                  FontSize="16"
+                  Width="200">
+            <ComboBoxItem Content="Add test product" Tag="AddProduct"/>
+            <ComboBoxItem Content="Add test product type" Tag="AddProductType"/>
+            <ComboBoxItem Content="Add test supplier" Tag="AddSupplier"/>
+        </ComboBox>
+
+        <Button x:Name="ApplyButton" Content="Apply" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top"
+                FontSize="16"
+                Margin="0,100,0,0" Width="200"
+                Click="ApplyButton_Click"/>
+
+    </Grid>
+</Window>

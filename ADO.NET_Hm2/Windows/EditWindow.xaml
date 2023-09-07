@@ -1,0 +1,35 @@
+﻿<Window x:Class="ADO.NET_Hm2.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ADO.NET_Hm2"
+        mc:Ignorable="d"
+        Title="EditWindow" Height="200" Width="400">
+    <Grid>
+        <TextBlock Text="Select the update option:" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,20,0,0"/>
+
+        <ComboBox x:Name="optionsComboBox" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Top" 
+                  Margin="0,50,0,0"
+                  FontSize="16"
+                  Width="200">
+            <ComboBoxItem Content="Edit test product" Tag="UpdateProduct"/>
+            <ComboBoxItem Content="Edit test product type" Tag="UpdateProductType"/>
+            <ComboBoxItem Content="Edit test supplier" Tag="UpdateSupplier"/>
+        </ComboBox>
+
+        <Button x:Name="ApplyButton" Content="Apply" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top"
+                FontSize="16"
+                Margin="20,100,0,0" Width="220"
+                Click="ApplyButton_Click"/>
+    </Grid>
+</Window>
