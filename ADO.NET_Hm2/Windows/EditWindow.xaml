@@ -30,6 +30,6 @@
                 VerticalAlignment="Top"
                 FontSize="16"
                 Margin="20,100,0,0" Width="220"
-                Click="ApplyButton_Click"/>
+                Click="ApplyButton_ClickAsync"/>
     </Grid>
 </Window>

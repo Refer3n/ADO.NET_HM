@@ -1,100 +1,166 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Diagnostics;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
+using System;
 using System.Globalization;
-using System.Linq;
 
 namespace ADO.NET_Hm2
 {
     public class StorageDatabase
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+        private static DbProviderFactory factory = null;
+        private string connectionString = ConfigurationManager.ConnectionStrings["Default"].ToString();
 
-        public string GetAllData()
+        public StorageDatabase()
+        {
+            DbProviderFactories.RegisterFactory(ConfigurationManager.ConnectionStrings["Default"].ProviderName,
+                SqlClientFactory.Instance);
+
+            factory = DbProviderFactories.GetFactory(ConfigurationManager.ConnectionStrings["Default"].ProviderName);
+        }
+
+        public async Task<string> GetAllDataAsync()
         {
             string query = "select p.ProductName, pt.TypeName as ProductType, s.SupplierName, " +
                            "p.Cost, p.Quantity, p.SupplyDate " +
                            "from Products p " +
                            "join ProductTypes pt on p.ProductType_Id = pt.Id " +
                            "join Suppliers s on p.Supplier_Id = s.Id";
-            return ExecuteQuery(query, "ProductName", "ProductType", "SupplierName", "Cost", "Quantity", "SupplyDate");
 
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQueryAsync(query, "ProductName", 
+                "ProductType", "SupplierName", "Cost", "Quantity", "SupplyDate");
+
+            stopwatch.Stop();
+
+            return $"{result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetAllTypes()
+        public async Task<string> GetAllTypesAsync()
         {
             string query = "select distinct TypeName from ProductTypes";
-            return $"Product Types:\n{ExecuteQuerySingleColumn(query)}";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQuerySingleColumnAsunc(query);
+            stopwatch.Stop();
+
+            return $"Product Types:\n{result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetAllSuppliers()
+        public async Task<string> GetAllSuppliersAsync()
         {
             string query = "select distinct SupplierName from Suppliers";
-            return $"Suppliers:\n{ExecuteQuerySingleColumn(query)}";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQuerySingleColumnAsunc(query);
+            stopwatch.Stop();
+
+            return $"Suppliers:\n{result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetMaxQuantityItem()
+        public async Task<string> GetMaxQuantityItemAsync()
         {
             string query = "select top 1 ProductName, Quantity from Products order by Quantity desc";
-            return $"Item with maximum quantity: {ExecuteQuery(query, "ProductName", "Quantity")}";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQueryAsync(query, "ProductName", "Quantity");
+            stopwatch.Stop();
+
+            return $"Item with maximum quantity: {result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetMinQuantityItem()
+        public async Task<string> GetMinQuantityItemAsync()
         {
             string query = "select top 1 ProductName, Quantity from Products order by Quantity asc";
-            return $"Item with minimum quantity: {ExecuteQuery(query, "ProductName", "Quantity")}";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQueryAsync(query, "ProductName", "Quantity");
+            stopwatch.Stop();
+
+            return $"Item with minimum quantity: {result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetMinCostItem()
+        public async Task<string> GetMinCostItemAsync()
         {
             string query = "select top 1 ProductName, Cost from Products order by Cost asc";
-            return $"Item with minimum cost: {ExecuteQuery(query, "ProductName", "Cost")}";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQueryAsync(query, "ProductName", "Cost");
+            stopwatch.Stop();
+
+            return $"Item with minimum cost: {result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetMaxCostItem()
+        public async Task<string> GetMaxCostItemAsync()
         {
             string query = "select top 1 ProductName, Cost from Products order by Cost desc";
-            return $"Item with minimum cost: {ExecuteQuery(query, "ProductName", "Cost")}";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQueryAsync(query, "ProductName", "Cost");
+            stopwatch.Stop();
+
+            return $"Item with maximum cost: {result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetItemsByCategory(string category)
+        public async Task<string> GetItemsByCategoryAsync(string category)
         {
             string query = $"select p.ProductName " +
                            $"from Products p " +
                            $"inner join ProductTypes pt on p.ProductType_Id = pt.Id " +
                            $"where pt.TypeName = '{category}'";
-            return $"Items in category '{category}':\n{ExecuteQuerySingleColumn(query)}";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQuerySingleColumnAsunc(query);
+            stopwatch.Stop();
+
+            return $"Items in category '{category}':\n{result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetItemsBySupplier(string supplier)
+        public async Task<string> GetItemsBySupplierAsync(string supplier)
         {
             string query = $"select p.ProductName " +
                            $"from Products p " +
                            $"inner join Suppliers s on p.Supplier_Id = s.Id " +
                            $"where s.SupplierName = '{supplier}'";
-            return $"Items from supplier '{supplier}':\n{ExecuteQuerySingleColumn(query)}";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQuerySingleColumnAsunc(query);
+            stopwatch.Stop();
+
+            return $"Items from supplier '{supplier}':\n{result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetLongestInStorageItem()
+        public async Task<string> GetLongestInStorageItemAsync()
         {
             string query = "select top 1 p.ProductName " +
-                           "from Products p " +
-                           "join ProductsStorage ps on p.Id = ps.Product_Id " +
+                           "from Products p " + 
                            "order by p.SupplyDate asc";
-            return $"Longest storage item: {ExecuteQuery(query, "ProductName")}";
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQueryAsync(query, "ProductName");
+            stopwatch.Stop();
+
+            return $"Longest storage item: {result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string GetAverageQuantityByType()
+        public async Task<string> GetAverageQuantityByTypeAsync()
         {
             string query = "select pt.TypeName, avg(p.Quantity) as AvgQuantity " +
                            "from Products p " +
                            "join ProductTypes pt on p.ProductType_Id = pt.Id " +
                            "group by pt.TypeName";
-            return ExecuteQuery(query, "TypeName", "AvgQuantity");
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            string result = await ExecuteQueryAsync(query, "TypeName", "AvgQuantity");
+            stopwatch.Stop();
+
+            return $"{result}Time elapsed: {stopwatch.ElapsedMilliseconds} ms";
         }
 
-        public string AddProduct(string productName, string productType, string supplier, decimal cost, int quantity, DateTime supplyDate)
+        public async Task<string> AddProductAsync(string productName, string productType, string supplier, decimal cost, int quantity, DateTime supplyDate)
         {
             try
             {
@@ -104,7 +170,11 @@ namespace ADO.NET_Hm2
                                             $"(select Id from Suppliers where SupplierName = '{supplier}'), " +
                                             $"{cost.ToString(CultureInfo.InvariantCulture)}, {quantity}, '{supplyDate:yyyy-MM-dd}')";
 
-                return ExecuteOperation(insertProductQuery);
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                string result = await ExecuteOperationAsync(insertProductQuery);
+                stopwatch.Stop();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -112,7 +182,7 @@ namespace ADO.NET_Hm2
             }
         }
 
-        public string UpdateProduct(string productName, string newProductName, string productType, string supplier, decimal cost, int quantity, DateTime supplyDate)
+        public async Task<string> UpdateProductAsync(string productName, string newProductName, string productType, string supplier, decimal cost, int quantity, DateTime supplyDate)
         {
             try
             {
@@ -125,7 +195,11 @@ namespace ADO.NET_Hm2
                                             $"SupplyDate = '{supplyDate:yyyy-MM-dd}' " +
                                             $"where ProductName = '{productName}'";
 
-                return ExecuteOperation(updateProductQuery);
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                string result = await ExecuteOperationAsync(updateProductQuery);
+                stopwatch.Stop();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -133,13 +207,18 @@ namespace ADO.NET_Hm2
             }
         }
 
-        public string DeleteProduct(string productName)
+        public async Task<string> DeleteProductAsync(string productName)
         {
             try
             {
                 string deleteProductQuery = $"delete from Products where ProductName = '{productName}'";
 
-                return ExecuteOperation(deleteProductQuery);
+
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                string result = await ExecuteOperationAsync(deleteProductQuery);
+                stopwatch.Stop();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -147,13 +226,17 @@ namespace ADO.NET_Hm2
             }
         }
 
-        public string AddProductType(string productType)
+        public async Task<string> AddProductTypeAsync(string productType)
         {
             try
             {
                 string insertProductTypeQuery = $"insert into ProductTypes (TypeName) values ('{productType}')";
 
-                return ExecuteOperation(insertProductTypeQuery);
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                string result = await ExecuteOperationAsync(insertProductTypeQuery);
+                stopwatch.Stop();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -161,13 +244,17 @@ namespace ADO.NET_Hm2
             }
         }
 
-        public string UpdateProductType(string productType, string newProductType)
+        public async Task<string> UpdateProductTypeAsync(string productType, string newProductType)
         {
             try
             {
                 string updateProductTypeQuery = $"update ProductTypes set TypeName = '{newProductType}' where TypeName = '{productType}'";
 
-                return ExecuteOperation(updateProductTypeQuery);
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                string result = await ExecuteOperationAsync(updateProductTypeQuery);
+                stopwatch.Stop();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -175,13 +262,17 @@ namespace ADO.NET_Hm2
             }
         }
 
-        public string DeleteProductType(string productType)
+        public async Task<string> DeleteProductTypeAsync(string productType)
         {
             try
             {
                 string deleteProductTypeQuery = $"delete from ProductTypes where TypeName = '{productType}'";
 
-                return ExecuteOperation(deleteProductTypeQuery);
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                string result = await ExecuteOperationAsync(deleteProductTypeQuery);
+                stopwatch.Stop();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -189,13 +280,17 @@ namespace ADO.NET_Hm2
             }
         }
 
-        public string AddSupplier(string supplier)
+        public async Task<string> AddSupplierAsync(string supplier)
         {
             try
             {
                 string insertSupplierQuery = $"insert into Suppliers (SupplierName) values ('{supplier}')";
 
-                return ExecuteOperation(insertSupplierQuery);
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                string result = await ExecuteOperationAsync(insertSupplierQuery);
+                stopwatch.Stop();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -203,13 +298,17 @@ namespace ADO.NET_Hm2
             }
         }
 
-        public string UpdateSupplier(string supplier, string newSupplier)
+        public async Task<string> UpdateSupplierAsync(string supplier, string newSupplier)
         {
             try
             {
                 string updateSupplierQuery = $"update Suppliers set SupplierName = '{newSupplier}' where SupplierName = '{supplier}'";
 
-                return ExecuteOperation(updateSupplierQuery);
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                string result = await ExecuteOperationAsync(updateSupplierQuery);
+                stopwatch.Stop();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -217,13 +316,17 @@ namespace ADO.NET_Hm2
             }
         }
 
-        public string DeleteSupplier(string supplier)
+        public async Task<string> DeleteSupplierAsync(string supplier)
         {
             try
             {
                 string deleteSupplierQuery = $"delete from Suppliers where SupplierName = '{supplier}'";
 
-                return ExecuteOperation(deleteSupplierQuery);
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                string result = await ExecuteOperationAsync(deleteSupplierQuery);
+                stopwatch.Stop();
+
+                return result;
             }
             catch (Exception ex)
             {
@@ -231,11 +334,11 @@ namespace ADO.NET_Hm2
             }
         }
 
-        public string ExecuteOperation(string sqlQuery)
+        public async Task<string> ExecuteOperationAsync(string sqlQuery)
         {
             try
             {
-                int rowsAffected = ExecuteNonQuery(sqlQuery);
+                int rowsAffected = await ExecuteNonQueryAsync(sqlQuery);
 
                 if (rowsAffected > 0)
                 {
@@ -252,78 +355,97 @@ namespace ADO.NET_Hm2
             }
         }
 
-        private int ExecuteNonQuery(string query)
+        private async Task<int> ExecuteNonQueryAsync(string query)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (DbConnection connection = factory.CreateConnection())
             {
-                connection.Open();
+                connection.ConnectionString = connectionString;
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                await connection.OpenAsync();
+
+                using (DbCommand command = factory.CreateCommand())
                 {
-                    int rowsAffected = command.ExecuteNonQuery();
+                    command.Connection = connection;
+                    command.CommandText = query;
+
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
                     return rowsAffected;
                 }
             }
         }
 
-        private string ExecuteQuery(string query, params string[] columnNames)
+        private async Task<string> ExecuteQueryAsync(string query, params string[] columnNames)
         {
             string result = "";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (DbConnection connection = factory.CreateConnection())
             {
-                connection.Open();
+                connection.ConnectionString = connectionString;
 
-                using (SqlCommand command = new SqlCommand(query, connection))
-                using (SqlDataReader reader = command.ExecuteReader())
+                await connection.OpenAsync();
+
+                using (DbCommand command = factory.CreateCommand())
                 {
-                    if (reader.HasRows)
+                    command.Connection = connection;
+
+                    command.CommandText = query;
+
+                    using (DbDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
-                            foreach (string columnName in columnNames)
+                            while (await reader.ReadAsync())
                             {
-                                result += $"{columnName}: {reader[columnName]}, ";
+                                foreach (string columnName in columnNames)
+                                {
+                                    result += $"{columnName}: {reader[columnName]}, ";
+                                }
+                                result += Environment.NewLine;
                             }
-                            result += Environment.NewLine;
+                        }
+                        else
+                        {
+                            result = "Nothing was found.";
                         }
                     }
-                    else
-                    {
-                        result = "Nothing was found.";
-                    }
-                }
 
-                connection.Close();
+                }
             }
 
             return result;
         }
 
-        private string ExecuteQuerySingleColumn(string query)
+        private async Task<string> ExecuteQuerySingleColumnAsunc(string query)
         {
             string result = "";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (DbConnection connection = factory.CreateConnection())
             {
-                connection.Open();
+                connection.ConnectionString = connectionString;
 
-                using (SqlCommand command = new SqlCommand(query, connection))
-                using (SqlDataReader reader = command.ExecuteReader())
+                await connection.OpenAsync();
+
+                using (DbCommand command = factory.CreateCommand())
                 {
-                    if (reader.HasRows)
+                    command.Connection = connection;
+
+                    command.CommandText = query;
+
+                    using (DbDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
-                            result += reader[0] + Environment.NewLine;
+                            while (await reader.ReadAsync())
+                            {
+                                result += reader[0] + Environment.NewLine;
+                            }
+                        }
+                        else
+                        {
+                            result = "Nothing was found.";
                         }
                     }
-                    else
-                    {
-                        result = "Nothing was found.";
-                    }
                 }
-                connection.Close();
             }
 
             return result;

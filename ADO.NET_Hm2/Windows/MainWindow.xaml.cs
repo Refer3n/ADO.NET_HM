@@ -28,7 +28,7 @@ namespace ADO.NET_Hm2
             database = new StorageDatabase();
         }
 
-        private void infoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void infoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (infoComboBox.SelectedItem != null)
             {
@@ -40,23 +40,24 @@ namespace ADO.NET_Hm2
 
                 if (method != null)
                 {
-                    if (string.Equals(selectedMethod, "GetItemsByCategory", StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(selectedMethod, "GetItemsByCategoryAsync", StringComparison.OrdinalIgnoreCase))
                     {
-                        result = (string)method.Invoke(database, new object[] { "Electronics" });
+                        result = await (Task<string>)method.Invoke(database, new object[] { "Electronics" });
                     }
-                    else if (string.Equals(selectedMethod, "GetItemsBySupplier", StringComparison.OrdinalIgnoreCase))
+                    else if (string.Equals(selectedMethod, "GetItemsBySupplierAsync", StringComparison.OrdinalIgnoreCase))
                     {
-                        result = (string)method.Invoke(database, new object[] { "Supplier A" });
+                        result = await (Task<string>)method.Invoke(database, new object[] { "Supplier A" });
                     }
                     else
                     {
-                        result = (string)method.Invoke(database, null);
+                        result = await (Task<string>)method.Invoke(database, null);
                     }
                 }
 
                 resultTextBox.Text = result;
             }
         }
+
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {

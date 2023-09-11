@@ -27,7 +27,7 @@ namespace ADO.NET_Hm2
             this.database = database;
         }
 
-        private void ApplyButton_Click(object sender, RoutedEventArgs e)
+        private async void ApplyButton_ClickAsync(object sender, RoutedEventArgs e)
         {
             ComboBoxItem selectedItem = (ComboBoxItem)optionsComboBox.SelectedItem;
 
@@ -39,13 +39,13 @@ namespace ADO.NET_Hm2
                 switch (operationTag)
                 {
                     case "DeleteProduct":
-                        resultMessage = database.DeleteProduct("Phone");
+                        resultMessage = await database.DeleteProductAsync("Phone");
                         break;
                     case "DeleteProductType":
-                        resultMessage = database.DeleteProductType("Flowers");
+                        resultMessage = await database.DeleteProductTypeAsync("Flowers");
                         break;
                     case "DeleteSupplier":
-                        resultMessage = database.DeleteSupplier("Supplier G");
+                        resultMessage = await database.DeleteSupplierAsync("Supplier G");
                         break;
                     default:
                         break;

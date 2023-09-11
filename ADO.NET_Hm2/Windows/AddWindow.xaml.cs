@@ -27,7 +27,7 @@ namespace ADO.NET_Hm2
             this.database = database;
         }
 
-        private void ApplyButton_Click(object sender, RoutedEventArgs e)
+        private async void ApplyButton_ClickAsync(object sender, RoutedEventArgs e)
         {
             ComboBoxItem selectedItem = (ComboBoxItem)optionsComboBox.SelectedItem;
 
@@ -39,13 +39,13 @@ namespace ADO.NET_Hm2
                 switch (operationTag)
                 {
                     case "AddProduct":
-                        resultMessage = database.AddProduct("Phone", "Electronics", "Supplier E", 300.99M, 8, DateTime.Now);
+                        resultMessage = await database.AddProductAsync("Phone", "Electronics", "Supplier E", 300.99M, 8, DateTime.Now);
                         break;
                     case "AddProductType":
-                        resultMessage = database.AddProductType("Stationery");
+                        resultMessage = await database.AddProductTypeAsync("Stationery");
                         break;
                     case "AddSupplier":
-                        resultMessage = database.AddSupplier("Supplier F");
+                        resultMessage = await database.AddSupplierAsync("Supplier F");
                         break;
                     default:
                         break;
