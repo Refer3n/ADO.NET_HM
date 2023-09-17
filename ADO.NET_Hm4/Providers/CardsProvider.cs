@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Pract4
 {
-    public class CardProvider
+    public class CardsProvider
     {
         private readonly IRepository<StudentCard> _repository;
 
-        public CardProvider(IRepository<StudentCard> repository)
+        public CardsProvider(IRepository<StudentCard> repository)
         {
             _repository = repository;
         }

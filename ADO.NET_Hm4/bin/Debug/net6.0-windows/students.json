@@ -1,0 +1,93 @@
+{
+  "students": [
+    {
+      "FirstName": "John",
+      "SecondName": "Doe",
+      "Phone": "123456789",
+      "Email": "johnDoe@gmail.com",
+      "StudentCard": {
+        "IdNumber": "A12345",
+        "DateOfIssue": "2023-09-15T10:00:00Z",
+        "Status": true
+      }
+    },
+    {
+      "FirstName": "Jane",
+      "SecondName": "Smith",
+      "Phone": "987654321",
+      "Email": "janeSmith@gmail.com",
+      "StudentCard": {
+        "IdNumber": "B54321",
+        "DateOfIssue": "2023-09-16T17:00:00Z",
+        "Status": false
+      }
+    },
+    {
+      "FirstName": "Mary",
+      "SecondName": "Johnson",
+      "Phone": "555555555",
+      "Email": "maryJohnson@gmail.com",
+      "StudentCard": {
+        "IdNumber": "C67890",
+        "DateOfIssue": "2023-09-16T18:00:00Z",
+        "Status": true
+      }
+    },
+    {
+      "FirstName": "David",
+      "SecondName": "Williams",
+      "Phone": "555123456",
+      "Email": "davidWilliams@gmail.com",
+      "StudentCard": {
+        "IdNumber": "D09876",
+        "DateOfIssue": "2023-09-17T12:00:00Z",
+        "Status": true
+      }
+    },
+    {
+      "FirstName": "Emily",
+      "SecondName": "Brown",
+      "Phone": "111222333",
+      "Email": "emilyBrown@gmail.com",
+      "StudentCard": {
+        "IdNumber": "E54321",
+        "DateOfIssue": "2023-09-17T14:00:00Z",
+        "Status": false
+      }
+    },
+    {
+      "FirstName": "Michael",
+      "SecondName": "Lee",
+      "Phone": "777888999",
+      "Email": "michaelLee@gmail.com",
+      "StudentCard": {
+        "IdNumber": "F13579",
+        "DateOfIssue": "2023-09-18T09:00:00Z",
+        "Status": true
+      }
+    },
+    {
+      "FirstName": "Sophia",
+      "SecondName": "Davis",
+      "Phone": "999888777",
+      "Email": "sophiaDavis@gmail.com",
+      "StudentCard": {
+        "IdNumber": "G98765",
+        "DateOfIssue": "2023-09-18T11:00:00Z",
+        "Status": false
+      }
+    },
+    {
+      "FirstName": "James",
+      "SecondName": "Wilson",
+      "Phone": "333444555",
+      "Email": "jamesWilson@gmail.com",
+      "StudentCard": {
+        "IdNumber": "H24680",
+        "DateOfIssue": "2023-09-19T15:00:00Z",
+        "Status": true
+      }
+    }
+  ]
+}
+

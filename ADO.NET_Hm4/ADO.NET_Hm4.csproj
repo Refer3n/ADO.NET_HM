@@ -21,4 +21,10 @@
     <ProjectReference Include="..\ADO.NET_Hm4.DAL\ADO.NET_Hm4.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="students.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

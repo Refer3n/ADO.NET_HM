@@ -67,3 +67,4 @@ E:\Education\AdoNet\Hm\ADO.NET_Hm4\obj\Debug\net6.0-windows\refint\ADO.NET_Hm4.d
 E:\Education\AdoNet\Hm\ADO.NET_Hm4\obj\Debug\net6.0-windows\ADO.NET_Hm4.pdb
 E:\Education\AdoNet\Hm\ADO.NET_Hm4\obj\Debug\net6.0-windows\ADO.NET_Hm4.genruntimeconfig.cache
 E:\Education\AdoNet\Hm\ADO.NET_Hm4\obj\Debug\net6.0-windows\ref\ADO.NET_Hm4.dll
+E:\Education\AdoNet\Hm\ADO.NET_Hm4\bin\Debug\net6.0-windows\students.json
