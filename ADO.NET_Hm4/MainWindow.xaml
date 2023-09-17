@@ -22,6 +22,7 @@
                   Width="200"
                   SelectionChanged="infoComboBox_SelectionChanged">
             <ComboBoxItem Content="All Students" Tag="GetAllInfo"/>
+            <ComboBoxItem Content="All Students Cards" Tag="GetAllInfo"/>
         </ComboBox>
 
         <TextBox x:Name="resultTextBox" 
@@ -34,8 +35,8 @@
 
         <UniformGrid Rows="1" Columns="3" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,320,0,0">
             <Button Content="Add" Width="142" Height="40" FontSize="14" Click="AddButton_Click" Margin="20,0,30,0"/>
-            <Button Content="Edit" Width="142" Height="40" FontSize="14" Click="EditButton_Click" Margin="20,0,30,0"/>
-            <Button Content="Delete" Width="142" Height="40" FontSize="14" Click="DeleteButton_Click" Margin="20,0,30,0"/>
+            <Button Content="Update" Width="142" Height="40" FontSize="14" Click="EditButton_Click" Margin="20,0,30,0"/>
+            <Button Content="Remove" Width="142" Height="40" FontSize="14" Click="DeleteButton_Click" Margin="20,0,30,0"/>
         </UniformGrid>
     </Grid>
 </Window>

@@ -39,6 +39,11 @@ namespace Pract4
             _repository.Remove(student);
         }
 
+        public void UpdateStudent(Student student)
+        {
+            _repository.Update(student);
+        }
+
         public Student GetStudent(int Id)
         {
             return _repository.Get(Id);

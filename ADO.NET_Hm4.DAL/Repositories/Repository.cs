@@ -42,7 +42,9 @@ namespace Pract4.DAL.Repositories
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

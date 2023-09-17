@@ -58,12 +58,16 @@ namespace ADO.NET_Hm4
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
+            var result = _database.UpdateLastStudent();
 
+            MessageBox.Show(result, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            var result = _database.RemoveLastStudent();
 
+            MessageBox.Show(result, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

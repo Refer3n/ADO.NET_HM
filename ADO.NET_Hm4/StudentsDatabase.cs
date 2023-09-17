@@ -51,19 +51,71 @@ namespace ADO.NET_Hm4
 
         public string AddTestStudent()
         {
+            var randomStudent = GetRandomStudent();
+
+            if(randomStudent == null)
+            {
+                return "No students found in the JSON file.";
+            }
+
+            studentsProvider.AddStudent(randomStudent);
+
+            return "Test student added successfully.";
+        }
+
+        public string UpdateLastStudent()
+        {
+            var lastStudent = studentsProvider.GetStudents().LastOrDefault();
+
+            if (lastStudent == null)
+            {
+                return "No students found to update.";
+            }
+            var randomStudent = GetRandomStudent();
+
+            if (randomStudent == null)
+            {
+                return "No students found in the JSON file.";
+            }
+
+            lastStudent.FirstName = randomStudent.FirstName;
+            lastStudent.SecondName = randomStudent.SecondName;
+            lastStudent.Phone = randomStudent.Phone;
+            lastStudent.Email = randomStudent.Email;
+            lastStudent.StudentCard = randomStudent.StudentCard;
+
+            studentsProvider.UpdateStudent(lastStudent);
+
+            return "Last student updated successfully.";
+        }
+
+        public string RemoveLastStudent()
+        {
+            var lastStudent = studentsProvider.GetStudents().LastOrDefault();
+
+            if (lastStudent == null)
+            {
+                return "No students found to delete.";
+            }
+
+            studentsProvider.RemoveStudent(lastStudent);
+
+            return "Last student deleted successfully.";
+        }
+
+        private Student GetRandomStudent()
+        {
             var studentsFromFile = ReadStudentsFromJsonFile();
 
             if (studentsFromFile == null || studentsFromFile.Count == 0)
             {
-                return "No students found in the JSON file.";
+                return null;
             }
 
             var random = new Random();
             var randomStudent = studentsFromFile[random.Next(studentsFromFile.Count)];
 
-            studentsProvider.AddStudent(randomStudent);
-
-            return "Test student added successfully.";
+            return randomStudent;
         }
 
         private List<Student> ReadStudentsFromJsonFile()
