@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO.NET_Hm4", "ADO.NET_Hm4.csproj", "{EFD868A5-3274-4D94-9DEC-891054233715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO.NET_Hm4.DAL", "..\ADO.NET_Hm4.DAL\ADO.NET_Hm4.DAL.csproj", "{271AB400-1714-418B-9E86-88FBDF317268}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFD868A5-3274-4D94-9DEC-891054233715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFD868A5-3274-4D94-9DEC-891054233715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFD868A5-3274-4D94-9DEC-891054233715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFD868A5-3274-4D94-9DEC-891054233715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{271AB400-1714-418B-9E86-88FBDF317268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{271AB400-1714-418B-9E86-88FBDF317268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{271AB400-1714-418B-9E86-88FBDF317268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{271AB400-1714-418B-9E86-88FBDF317268}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {558BBAF3-6A30-4B3F-821F-3F14E56DB6E4}
+	EndGlobalSection
+EndGlobal
