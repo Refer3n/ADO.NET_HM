@@ -1,0 +1,14 @@
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\bin\Debug\net6.0\ADO.NET_Hm4.DAL.deps.json
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\bin\Debug\net6.0\ADO.NET_Hm4.DAL.runtimeconfig.json
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\bin\Debug\net6.0\ADO.NET_Hm4.DAL.dll
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\bin\Debug\net6.0\ADO.NET_Hm4.DAL.pdb
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\ADO.NET_Hm4.DAL.csproj.AssemblyReference.cache
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\ADO.NET_Hm4.DAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\ADO.NET_Hm4.DAL.AssemblyInfoInputs.cache
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\ADO.NET_Hm4.DAL.AssemblyInfo.cs
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\ADO.NET_Hm4.DAL.csproj.CoreCompileInputs.cache
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\ADO.NET_Hm4.DAL.dll
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\refint\ADO.NET_Hm4.DAL.dll
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\ADO.NET_Hm4.DAL.pdb
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\ADO.NET_Hm4.DAL.genruntimeconfig.cache
+E:\Education\AdoNet\Hm\ADO.NET_Hm4.DAL\obj\Debug\net6.0\ref\ADO.NET_Hm4.DAL.dll
