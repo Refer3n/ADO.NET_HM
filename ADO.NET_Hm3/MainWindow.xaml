@@ -1,0 +1,56 @@
+﻿<Window x:Class="ADO.NET_Hm3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ADO.NET_Hm3"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="700">
+    <Grid>
+        <TextBlock Text="Select the information you want:" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Margin="0,20,0,0"/>
+
+        <ComboBox x:Name="infoComboBox" 
+          HorizontalAlignment="Center" 
+          VerticalAlignment="Top" 
+          Margin="0,50,0,0"
+          FontSize="16"
+          Width="200"
+          SelectionChanged="infoComboBox_SelectionChanged">
+            <ComboBoxItem Content="All Country Info" Tag="GetAllInfo"/>
+            <ComboBoxItem Content="Country Names" Tag="GetCountryNames"/>
+            <ComboBoxItem Content="Capital Names" Tag="GetCapitalNames"/>
+            <ComboBoxItem Content="Cities by Country" Tag="GetCitiesByCountry"/>
+            <ComboBoxItem Content="Capitals with Population > 5M" Tag="GetCapitalsWithPopulationOverFiveMillion"/>
+            <ComboBoxItem Content="European Countries" Tag="GetEuropeanCountries"/>
+            <ComboBoxItem Content="Countries with Area > MinArea" Tag="GetCountriesWithAreaGreaterThan"/>
+            <ComboBoxItem Content="Capital Names Containing 'AI'" Tag="GetCapitalNamesContainingAI"/>
+            <ComboBoxItem Content="Country Names Containing 'K'" Tag="GetCountryNamesContainingK"/>
+            <ComboBoxItem Content="Countries with Area in Range" Tag="GetCountriesWithAreaInRange"/>
+            <ComboBoxItem Content="Countries with Population > MinPopulation" Tag="GetCountriesWithPopulationGreaterThan"/>
+            <ComboBoxItem Content="Top 5 Countries by Area" Tag="GetTop5CountriesByArea"/>
+            <ComboBoxItem Content="Top 5 Capitals by Population" Tag="GetTop5CapitalsByPopulation"/>
+            <ComboBoxItem Content="Country with Largest Area" Tag="GetCountryWithLargestArea"/>
+            <ComboBoxItem Content="Capital with Largest Population" Tag="GetCapitalWithLargestPopulation"/>
+            <ComboBoxItem Content="Country with Smallest Area in Europe" Tag="GetCountryWithSmallestAreaInEurope"/>
+            <ComboBoxItem Content="Average Area of European Countries" Tag="GetAverageAreaOfEuropeanCountries"/>
+            <ComboBoxItem Content="Top 3 Cities by Population" Tag="GetTop3CitiesByPopulation"/>
+            <ComboBoxItem Content="Total Countries Count" Tag="GetTotalCountriesCount"/>
+            <ComboBoxItem Content="Continent with Most Countries" Tag="GetContinentWithMostCountries"/>
+            <ComboBoxItem Content="Countries Count by Continent" Tag="GetCountriesCountByContinent"/>
+        </ComboBox>
+
+
+        <TextBox x:Name="resultTextBox" 
+                 HorizontalAlignment="Center" 
+                 VerticalAlignment="Top" 
+                 Margin="0,100,0,0" 
+                 Width="580" 
+                 Height="200" 
+                 FontSize="14"/>
+    </Grid>
+</Window>
