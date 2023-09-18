@@ -22,38 +22,51 @@ namespace ADO.NET_Hm4
     public partial class MainWindow : Window
     {
         StudentsDatabase _database;
+        private Func<string> lastSelectedMethod;
+
         public MainWindow()
         {
             InitializeComponent();
             _database = new StudentsDatabase();
+
+            lastSelectedMethod = () => ExecuteSelectedMethod();
         }
 
         private void infoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (infoComboBox.SelectedItem != null)
             {
-                string selectedMethod = (string)((ComboBoxItem)infoComboBox.SelectedItem).Tag;
-                string result = string.Empty;
+                lastSelectedMethod = () => ExecuteSelectedMethod();
 
-                Type databaseType = typeof(StudentsDatabase);
-                MethodInfo method = databaseType.GetMethod(selectedMethod);
-
-                if (method != null)
-                {
-                    object[] parameters = null;             
-
-                    result = (string)method.Invoke(_database, parameters);
-                }
-
-                resultTextBox.Text = result;
+                resultTextBox.Text = lastSelectedMethod();
             }
         }
+
+        private string ExecuteSelectedMethod()
+        {
+            string selectedMethod = (string)((ComboBoxItem)infoComboBox.SelectedItem).Tag;
+            string result = string.Empty;
+
+            Type databaseType = typeof(StudentsDatabase);
+            MethodInfo method = databaseType.GetMethod(selectedMethod);
+
+            if (method != null)
+            {
+                object[] parameters = null;
+
+                result = (string)method.Invoke(_database, parameters);
+            }
+
+            return result;
+        }
+
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var result = _database.AddTestStudent();
 
             MessageBox.Show(result, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            resultTextBox.Text = lastSelectedMethod();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -61,6 +74,7 @@ namespace ADO.NET_Hm4
             var result = _database.UpdateLastStudent();
 
             MessageBox.Show(result, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            resultTextBox.Text = lastSelectedMethod();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -68,6 +82,7 @@ namespace ADO.NET_Hm4
             var result = _database.RemoveLastStudent();
 
             MessageBox.Show(result, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            resultTextBox.Text = lastSelectedMethod();
         }
     }
 }

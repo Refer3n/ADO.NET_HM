@@ -9,7 +9,9 @@
         "IdNumber": "A12345",
         "DateOfIssue": "2023-09-15T10:00:00Z",
         "Status": true
-      }
+      },
+      "DateOfBirth": "1995-05-10",
+      "Address": "123 Main St"
     },
     {
       "FirstName": "Jane",
@@ -20,7 +22,9 @@
         "IdNumber": "B54321",
         "DateOfIssue": "2023-09-16T17:00:00Z",
         "Status": false
-      }
+      },
+      "DateOfBirth": "1998-07-22",
+      "Address": "456 Elm St"
     },
     {
       "FirstName": "Mary",
@@ -31,7 +35,9 @@
         "IdNumber": "C67890",
         "DateOfIssue": "2023-09-16T18:00:00Z",
         "Status": true
-      }
+      },
+      "DateOfBirth": "1999-03-15",
+      "Address": "789 Oak St"
     },
     {
       "FirstName": "David",
@@ -42,7 +48,9 @@
         "IdNumber": "D09876",
         "DateOfIssue": "2023-09-17T12:00:00Z",
         "Status": true
-      }
+      },
+      "DateOfBirth": "1997-11-30",
+      "Address": "111 Pine St"
     },
     {
       "FirstName": "Emily",
@@ -53,7 +61,9 @@
         "IdNumber": "E54321",
         "DateOfIssue": "2023-09-17T14:00:00Z",
         "Status": false
-      }
+      },
+      "DateOfBirth": "2000-02-18",
+      "Address": "222 Cedar St"
     },
     {
       "FirstName": "Michael",
@@ -64,7 +74,9 @@
         "IdNumber": "F13579",
         "DateOfIssue": "2023-09-18T09:00:00Z",
         "Status": true
-      }
+      },
+      "DateOfBirth": "1996-08-03",
+      "Address": "333 Birch St"
     },
     {
       "FirstName": "Sophia",
@@ -75,7 +87,9 @@
         "IdNumber": "G98765",
         "DateOfIssue": "2023-09-18T11:00:00Z",
         "Status": false
-      }
+      },
+      "DateOfBirth": "1994-04-25",
+      "Address": "444 Maple St"
     },
     {
       "FirstName": "James",
@@ -86,8 +100,48 @@
         "IdNumber": "H24680",
         "DateOfIssue": "2023-09-19T15:00:00Z",
         "Status": true
-      }
+      },
+      "DateOfBirth": "1993-10-12",
+      "Address": "555 Oak St"
+    },
+    {
+      "FirstName": "Laura",
+      "SecondName": "Taylor",
+      "Phone": "444555666",
+      "Email": "lauraTaylor@gmail.com",
+      "StudentCard": {
+        "IdNumber": "I97531",
+        "DateOfIssue": "2023-09-19T16:00:00Z",
+        "Status": false
+      },
+      "DateOfBirth": "1998-01-07",
+      "Address": "666 Cedar St"
+    },
+    {
+      "FirstName": "William",
+      "SecondName": "Brown",
+      "Phone": "777666555",
+      "Email": "williamBrown@gmail.com",
+      "StudentCard": {
+        "IdNumber": "J86420",
+        "DateOfIssue": "2023-09-20T10:00:00Z",
+        "Status": true
+      },
+      "DateOfBirth": "1997-09-28",
+      "Address": "777 Pine St"
+    },
+    {
+      "FirstName": "Olivia",
+      "SecondName": "Harris",
+      "Phone": "555444333",
+      "Email": "oliviaHarris@gmail.com",
+      "StudentCard": {
+        "IdNumber": "K75309",
+        "DateOfIssue": "2023-09-20T11:00:00Z",
+        "Status": false
+      },
+      "DateOfBirth": "1999-12-15",
+      "Address": "888 Birch St"
     }
   ]
 }
-

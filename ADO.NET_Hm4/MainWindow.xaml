@@ -22,7 +22,6 @@
                   Width="200"
                   SelectionChanged="infoComboBox_SelectionChanged">
             <ComboBoxItem Content="All Students" Tag="GetAllInfo"/>
-            <ComboBoxItem Content="All Students Cards" Tag="GetAllInfo"/>
         </ComboBox>
 
         <TextBox x:Name="resultTextBox" 

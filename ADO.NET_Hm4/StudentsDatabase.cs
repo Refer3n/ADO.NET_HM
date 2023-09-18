@@ -39,7 +39,8 @@ namespace ADO.NET_Hm4
 
             foreach (var student in students)
             {
-                result += $"Student Name: {student.FirstName} {student.SecondName}\n";
+                result += $"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}\n";
 
                 result += $"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}," +
                     $" Status: {(student.StudentCard.Status ? "Active\n" : "Inactive\n")}";
@@ -82,6 +83,8 @@ namespace ADO.NET_Hm4
             lastStudent.SecondName = randomStudent.SecondName;
             lastStudent.Phone = randomStudent.Phone;
             lastStudent.Email = randomStudent.Email;
+            lastStudent.DateOfBirth = randomStudent.DateOfBirth;
+            lastStudent.Address = randomStudent.Address;
             lastStudent.StudentCard = randomStudent.StudentCard;
 
             studentsProvider.UpdateStudent(lastStudent);
