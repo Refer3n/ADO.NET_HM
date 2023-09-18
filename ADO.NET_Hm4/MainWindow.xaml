@@ -30,6 +30,12 @@
             <ComboBoxItem Content="Students by First Name Starting With" Tag="GetStudentsByFirstNameStartingWith"/>
             <ComboBoxItem Content="Students by Last Name Starting With" Tag="GetStudentsByLastNameStartingWith"/>
             <ComboBoxItem Content="Students with Email Domain" Tag="GetStudentsWithEmailDomain"/>
+            <ComboBoxItem Content="Students born in Month" Tag="GetStudentsBornInMonth"/>
+            <ComboBoxItem Content="Student with Longest Name" Tag="GetStudentsWithLongestName"/>
+            <ComboBoxItem Content="Students by Age Range" Tag="GetStudentsByAgeRange"/>
+            <ComboBoxItem Content="Students born before Year" Tag="GetStudentsBornBeforeYear"/>
+            <ComboBoxItem Content="Students with Most Common First Name" Tag="GetStudentsWithMostCommonFirstName"/>
+            <ComboBoxItem Content="Students with Same First and Last Name" Tag="GetStudentsWithSameFirstNameAndLastName"/>
         </ComboBox>
 
 

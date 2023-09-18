@@ -87,6 +87,22 @@ namespace ADO.NET_Hm4
                     string emailDomain = "gmail.com"; 
                     parameters = new object[] { emailDomain };
                 }
+                else if (selectedMethod == "GetStudentsBornInMonth")
+                {
+                    int month = 2;
+                    parameters = new object[] { month };
+                }
+                else if (selectedMethod == "GetStudentsByAgeRange")
+                {
+                    int min = 18;
+                    int max = 24;
+                    parameters = new object[] { min, max };
+                }
+                else if (selectedMethod == "GetStudentsBornBeforeYear")
+                {
+                    int year = 2000;
+                    parameters = new object[] { year };
+                }
 
                 result = (string)method.Invoke(_database, parameters);
             }

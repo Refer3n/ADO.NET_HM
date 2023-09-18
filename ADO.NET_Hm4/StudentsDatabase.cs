@@ -199,6 +199,165 @@ namespace ADO.NET_Hm4
             return result.ToString();
         }
 
+        public string GetStudentsByAgeRange(int minAge, int maxAge)
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var currentDate = DateTime.Now;
+            var filteredStudents = studentsProvider.GetStudents()
+                .Where(student => currentDate.Year - student.DateOfBirth.Year >= minAge &&
+                                  currentDate.Year - student.DateOfBirth.Year <= maxAge)
+                .ToList();
+
+            if (filteredStudents.Count == 0)
+            {
+                return $"No students found within the age range {minAge}-{maxAge}.";
+            }
+
+            StringBuilder result = new($"Students within the age range {minAge}-{maxAge}:\n");
+            foreach (var student in filteredStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}\n");
+            }
+
+            return result.ToString();
+        }
+
+        public string GetStudentsBornBeforeYear(int year)
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var filteredStudents = studentsProvider.GetStudents()
+                .Where(student => student.DateOfBirth.Year < year)
+                .ToList();
+
+            if (filteredStudents.Count == 0)
+            {
+                return $"No students found born before the year {year}.";
+            }
+
+            StringBuilder result = new($"Students born before the year {year}:\n");
+            foreach (var student in filteredStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}," +
+                    $" Status: {(student.StudentCard.Status ? "Active" : "Inactive")}\n");
+            }
+
+            return result.ToString();
+        }
+
+        public string GetStudentsWithLongestName()
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var students = studentsProvider.GetStudents();
+
+            var longestName = students
+                .OrderByDescending(student => (student.FirstName + student.SecondName).Length)
+                .FirstOrDefault();
+
+            if (longestName == null)
+            {
+                return "No students found.";
+            }
+
+            StringBuilder result = new("Student with the longest name:\n");
+            result.AppendLine($"Student Name: {longestName.FirstName} {longestName.SecondName}," +
+                $" Date Of Birth: {longestName.DateOfBirth.ToShortDateString()}, Address: {longestName.Address}");
+            result.AppendLine($"Student Card: {longestName.StudentCard.IdNumber}, Date of Issue: {longestName.StudentCard.DateOfIssue}," +
+                $" Status: {(longestName.StudentCard.Status ? "Active" : "Inactive")}\n");
+
+            return result.ToString();
+        }
+
+        public string GetStudentsBornInMonth(int month)
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var filteredStudents = studentsProvider.GetStudents()
+                .Where(student => student.DateOfBirth.Month == month)
+                .ToList();
+
+            if (filteredStudents.Count == 0)
+            {
+                return $"No students found born in month {month}.";
+            }
+
+            StringBuilder result = new($"Students born in month {month}:\n");
+            foreach (var student in filteredStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}," +
+                    $" Status: {(student.StudentCard.Status ? "Active" : "Inactive")}\n");
+            }
+
+            return result.ToString();
+        }
+
+        public string GetStudentsWithMostCommonFirstName()
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var students = studentsProvider.GetStudents();
+
+            var mostCommonFirstName = students
+                .GroupBy(student => student.FirstName, StringComparer.OrdinalIgnoreCase)
+                .OrderByDescending(group => group.Count())
+                .Select(group => group.Key)
+                .FirstOrDefault();
+
+            if (mostCommonFirstName == null)
+            {
+                return "No students found.";
+            }
+
+            StringBuilder result = new($"Students with the most common first name '{mostCommonFirstName}':\n");
+            var filteredStudents = studentsProvider.GetStudents()
+                .Where(student => student.FirstName.Equals(mostCommonFirstName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            foreach (var student in filteredStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}," +
+                    $" Status: {(student.StudentCard.Status ? "Active" : "Inactive")}\n");
+            }
+
+            return result.ToString();
+        }
+
+        public string GetStudentsWithSameFirstNameAndLastName()
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var filteredStudents = studentsProvider.GetStudents()
+                .Where(student => student.FirstName.Equals(student.SecondName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (filteredStudents.Count == 0)
+            {
+                return "No students found with the same first and last name.";
+            }
+
+            StringBuilder result = new("Students with the same first and last name:\n");
+            foreach (var student in filteredStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}," +
+                    $" Status: {(student.StudentCard.Status ? "Active" : "Inactive")}\n");
+            }
+
+            return result.ToString();
+        }
+
         public string AddTestStudent()
         {
             var randomStudent = GetRandomStudent();
