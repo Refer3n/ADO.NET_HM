@@ -16,7 +16,6 @@ namespace ADO.NET_Hm4
     {
         private StudentsProvider studentsProvider;
         private CardsProvider cardsProvider;
-
         private static string JsonFile = "students.json";
 
         public StudentsDatabase()
@@ -32,22 +31,172 @@ namespace ADO.NET_Hm4
         public string GetAllInfo()
         {
             var cards = cardsProvider.GetCards().ToList();
+            var students = studentsProvider.GetStudents();
 
-            var students = studentsProvider.GetStudents().ToList();
-
-            string result = "";
-
+            var result = new StringBuilder();
             foreach (var student in students)
             {
-                result += $"Student Name: {student.FirstName} {student.SecondName}," +
-                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}\n";
-
-                result += $"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}," +
-                    $" Status: {(student.StudentCard.Status ? "Active\n" : "Inactive\n")}";
-
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}," +
+                    $" Status: {(student.StudentCard.Status ? "Active" : "Inactive")}\n");
             }
 
-            return result;
+            return result.ToString();
+        }
+
+        public string GetStudentsByStatus(bool isActive)
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var filteredStudents = studentsProvider.GetStudents()
+                .Where(student => student.StudentCard.Status == isActive)
+                .OrderBy(student => student.FirstName)
+                .ThenBy(student => student.SecondName)
+                .ToList();
+
+            if (filteredStudents.Count == 0)
+            {
+                return isActive ? "No active students found." : "No inactive students found.";
+            }
+
+            string statusText = isActive ? "Active" : "Inactive";
+            StringBuilder result = new($"{statusText} Students (sorted by name):\n");
+            foreach (var student in filteredStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}\n");
+            }
+
+            return result.ToString();
+        }
+
+        public string GetStudentsSortedByBirthdate(bool ascending)
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var sortedStudents = ascending
+                ? studentsProvider.GetStudents().OrderBy(student => student.DateOfBirth).ToList()
+                : studentsProvider.GetStudents().OrderByDescending(student => student.DateOfBirth).ToList();
+
+            if (sortedStudents.Count == 0)
+            {
+                return "No students found.";
+            }
+
+            string sortOrder = ascending ? "ascending" : "descending";
+            StringBuilder result = new($"All Students (sorted by birthdate {sortOrder}):\n");
+            foreach (var student in sortedStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}\n");
+            }
+
+            return result.ToString();
+        }
+
+        public string GetStudentsSortedByName()
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var sortedStudents = studentsProvider.GetStudents()
+                .OrderBy(student => student.FirstName)
+                .ThenBy(student => student.SecondName)
+                .ToList();
+
+            if (sortedStudents.Count == 0)
+            {
+                return "No students found.";
+            }
+
+            StringBuilder result = new("All Students (sorted by name):\n");
+            foreach (var student in sortedStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}\n");
+            }
+
+            return result.ToString();
+        }
+
+        public string GetStudentsByFirstNameStartingWith(string startsWith)
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var filteredStudents = studentsProvider.GetStudents()
+                .Where(student => student.FirstName.StartsWith(startsWith, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (filteredStudents.Count == 0)
+            {
+                return $"No students found with first name starting with '{startsWith}'.";
+            }
+
+            StringBuilder result = new($"Students with first name starting with '{startsWith}':\n");
+            foreach (var student in filteredStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}\n");
+            }
+
+            return result.ToString();
+        }
+
+        public string GetStudentsByLastNameStartingWith(string startsWith)
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var filteredStudents = studentsProvider.GetStudents()
+                .Where(student => student.SecondName.StartsWith(startsWith, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (filteredStudents.Count == 0)
+            {
+                return $"No students found with last name starting with '{startsWith}'.";
+            }
+
+            StringBuilder result = new($"Students with last name starting with '{startsWith}':\n");
+            foreach (var student in filteredStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}\n");
+            }
+
+            return result.ToString();
+        }
+
+        public string GetStudentsWithEmailDomain(string emailDomain)
+        {
+            var cards = cardsProvider.GetCards().ToList();
+
+            var filteredStudents = studentsProvider.GetStudents()
+                .Where(student => student.Email.EndsWith(emailDomain)).ToList();
+
+            if (filteredStudents.Count == 0)
+            {
+                return $"No students found with email addresses ending in '{emailDomain}'.";
+            }
+
+            StringBuilder result = new($"Students with email addresses ending in '{emailDomain}':\n");
+            foreach (var student in filteredStudents)
+            {
+                result.AppendLine($"Student Name: {student.FirstName} {student.SecondName}," +
+                    $" Date Of Birth: {student.DateOfBirth.ToShortDateString()}, Address: {student.Address}");
+
+                result.AppendLine($"Student Card: {student.StudentCard.IdNumber}, Date of Issue: {student.StudentCard.DateOfIssue}\n");
+            }
+
+            return result.ToString();
         }
 
         public string AddTestStudent()
@@ -104,6 +253,12 @@ namespace ADO.NET_Hm4
             studentsProvider.RemoveStudent(lastStudent);
 
             return "Last student deleted successfully.";
+        }
+
+        private List<Student> GetStudents()
+        {
+            var cards = cardsProvider.GetCards();
+            return studentsProvider.GetStudents().ToList();
         }
 
         private Student GetRandomStudent()

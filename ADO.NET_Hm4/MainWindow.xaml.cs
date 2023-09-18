@@ -54,11 +54,46 @@ namespace ADO.NET_Hm4
             {
                 object[] parameters = null;
 
+                if (selectedMethod == "GetStudentsByStatus")
+                {
+                    bool isActive = true;
+                    if (((ComboBoxItem)infoComboBox.SelectedItem).TabIndex == 1)
+                    {
+                        isActive = false;
+                    }
+                    parameters = new object[] { isActive };
+                }
+                else if (selectedMethod == "GetStudentsSortedByBirthdate")
+                {
+                    bool ascending = true;
+                    if (((ComboBoxItem)infoComboBox.SelectedItem).TabIndex == 2)
+                    {
+                        ascending = false;
+                    }
+                    parameters = new object[] { ascending };
+                }
+                else if (selectedMethod == "GetStudentsByFirstNameStartingWith")
+                {
+                    string startsWith = "E"; 
+                    parameters = new object[] { startsWith };
+                }
+                else if (selectedMethod == "GetStudentsByLastNameStartingWith")
+                {
+                    string startsWith = "J"; 
+                    parameters = new object[] { startsWith };
+                }
+                else if (selectedMethod == "GetStudentsWithEmailDomain")
+                {
+                    string emailDomain = "gmail.com"; 
+                    parameters = new object[] { emailDomain };
+                }
+
                 result = (string)method.Invoke(_database, parameters);
             }
 
             return result;
         }
+
 
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
